@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TodoList from "../components/TodoList";
 import { getServerSideTodos } from "../todoApi";
-// import { Todo } from "api";
 
 const Home = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -21,18 +20,7 @@ const Home = () => {
     setCompleted(event.target.checked);
   };
 
-  // const handleSubmit = () => {
-  //   const message = `POST:\nUserId: ${userId}\nTitle: ${title}\nCompleted: ${completed}`;
-  //   alert(message);
-  // };
-
   const handleSubmit = () => {
-    // TypeScript
-    // const data: Todo = {
-    //   userId: userId,
-    //   title: title,
-    //   completed: completed,
-    // };
     const data = {
       userId: userId,
       title: title,
