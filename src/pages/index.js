@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TodoList from "../components/TodoList";
 import { getServerSideTodos } from "../todoApi";
+import axios from "axios";
 
 const Home = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -27,16 +28,10 @@ const Home = () => {
       completed: completed,
     };
 
-    fetch("https://jsonplaceholder.typicode.com/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        alert("POST success:\n" + JSON.stringify(responseData));
+    axios
+      .post("https://jsonplaceholder.typicode.com/todos", data)
+      .then((response) => {
+        alert("POST success:\n" + JSON.stringify(response.data));
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -49,43 +44,69 @@ const Home = () => {
   };
   return (
     <div>
-      <h1>Todo App</h1>
+      <h1 style={{ textAlign: "center" }}>Todo App</h1>
       <TodoList pageNumber={pageNumber} onPageChange={handlePageChange} />
-
-      <form>
-        <h2>Todo Post</h2>
-        <label>
-          User ID :
-          <input
-            type="number"
-            name="field1"
-            value={userId}
-            onChange={handleForm1Change}
-          />
-        </label>
-        <br />
-        <label>
-          Title :
-          <input
-            type="text"
-            name="field2"
-            value={title}
-            onChange={handleForm2Change}
-          />
-        </label>
-        <br />
-        <label>
-          Completed :
-          <input
-            type="checkbox"
-            name="completed"
-            checked={completed}
-            onChange={handleCompletedChange}
-          />
-        </label>
-        <br />
-      </form>
-      <button onClick={handleSubmit}>Submit</button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            width: "300px",
+          }}
+        >
+          <h2 style={{ textAlign: "center" }}>Todo Post</h2>
+          <label>
+            User ID :
+            <input
+              type="number"
+              name="field1"
+              value={userId}
+              onChange={handleForm1Change}
+              style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
+            />
+          </label>
+          <label>
+            Title :
+            <input
+              type="text"
+              name="field2"
+              value={title}
+              onChange={handleForm2Change}
+              style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
+            />
+          </label>
+          <label style={{ display: "flex", alignItems: "center" }}>
+            Completed :
+            <input
+              type="checkbox"
+              name="completed"
+              checked={completed}
+              onChange={handleCompletedChange}
+              style={{ marginLeft: "10px" }}
+            />
+          </label>
+          <button
+            onClick={handleSubmit}
+            style={{
+              padding: "10px",
+              backgroundColor: "#007BFF",
+              color: "#fff",
+              border: "none",
+              cursor: "pointer",
+              borderRadius: "5px",
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

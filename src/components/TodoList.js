@@ -19,7 +19,7 @@ const TodoList = ({ pageNumber, onPageChange }) => {
   }, []);
 
   if (isLoading) {
-    return <Message>Loading...</Message>;
+    return <Message style={{ textAlign: "center" }}>Loading...</Message>;
   }
 
   if (error) {
